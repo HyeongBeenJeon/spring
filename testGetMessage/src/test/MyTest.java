@@ -52,7 +52,7 @@ public class MyTest {
 	@Test
 	public void testGit()
 	{
-		ti.InsertTest();
+		ti.InsertTest(departmentMapper);
 	}
 
 }
