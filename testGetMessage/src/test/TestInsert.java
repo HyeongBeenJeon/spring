@@ -1,5 +1,6 @@
 package test;
 
+import springMybatis0204.dto.Department;
 import springMybatis0204.mapper.DepartmentMapper;
 
 public class TestInsert
