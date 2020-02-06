@@ -16,6 +16,7 @@ import springMybatis0204.Dto.Department;
 import springMybatis0204.Dto.Employee;
 import springMybatis0204.mapper.DepartmentMapper;
 import springMybatis0204.mapper.EmployeeMapper;
+import springMybatis0204.test.TestInsert;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:config/springContext.xml")
@@ -27,7 +28,9 @@ public class MyTest {
 	@Autowired
 	DepartmentMapper departmentMapper;
 	
-	@Test
+	TestInsert ti = new Testinsert();
+	
+	@Test @Ignore
 	public void test() {
 		assertNotNull(employeeMapper);
 		List<Employee> list = employeeMapper.selectList();
@@ -46,6 +49,10 @@ public class MyTest {
 		System.out.println(department.getId());
 	}
 	
-	
+	@Test
+	public void testGit()
+	{
+		ti.InsertTest();
+	}
 
 }
