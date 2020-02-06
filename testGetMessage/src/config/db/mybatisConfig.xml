@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+  
+<configuration>
+    <!-- 세팅 -->
+    <settings>
+        <!-- 디비표현식(a_a를 aA로 바꿔줌 -->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+        <!-- 프라이머리 키를 가져다 주는 놈! -->
+        <setting name="useGeneratedKeys" value="true"/>
+    </settings>
+    
+    <typeAliases>
+        <typeAlias type="springMybatis0204.Dto.Department" alias="department"/>
+        <typeAlias type="springMybatis0204.Dto.Employee" alias="employee"/>    
+    </typeAliases>
+</configuration>  

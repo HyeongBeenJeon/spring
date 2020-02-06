@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+		
+	<!-- 빈 스캔 -->
+	<context:component-scan base-package="springMybatis0204"/>
+	
+    <!-- DB 설정을 가지고 있는 프로퍼티 파일 불러오기 -->
+    <context:property-placeholder location="classpath:config/dbInfo.properties"/>
+    
+    <!-- dataSource 빈 등록(디비 접속, 커넥션 풀도 해줌) -->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <!-- 드라이버 클래스 이름 -->
+    	<property name="driverClassName" value="${db.driverClass}"/>
+    	<!-- 디비 접속 URL -->
+	    <property name="url" value="${db.url}"/>
+	    <!-- 아이디(유저이름) -->
+	    <property name="username" value="${db.username}"/>
+	    <!-- 패스워드 -->
+	    <property name="password" value="${db.password}"/>
+    </bean>
+    
+    <!-- sql session factory -->
+    <bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!-- 데이터 소스 빈(데이터 접속 정보)을 넣어준다. -->
+        <property name="dataSource" ref="dataSource"/>
+        <!-- 마이바티스 설정 정보를 넣어준다. -->
+        <property name="configLocation" value="classpath:config/db/mybatisConfig.xml"/>
+    </bean>
+    
+    <!-- 쿼리 날려주는 놈!
+    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg ref="sqlSessionFactoryBean"/>
+    </bean>
+     -->
+    <!-- MyBatis 인터페이스 방식을 사용하기 위해 맵퍼를 빈 등록
+    <bean class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="springMybatis0204.mapper"/>
+        <property name="sqlSessionTemplate"></property>
+    </bean>
+     -->
+     <!-- 위 둘은 지금까지 사용했던 방식 -->
+    
+    <!-- 이번엔 MyBatis 맵퍼를 빈으로 등록하는데, 스프링 스캔처럼 Bean 등록할 것 -->
+    <mybatis-spring:scan base-package="springMybatis0204.mapper"/>
+</beans>
