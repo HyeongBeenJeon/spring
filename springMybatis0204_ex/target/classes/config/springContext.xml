@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+    <!-- 빈 스캔 등록 -->
+    <context:component-scan base-package="spring0204_ex"/>
+    
+    <!-- DB 설정을 가지고 있는 프로퍼티 파일 불러오기 -->
+    <context:property-placeholder location="classpath:config/dbInfo.properties"/>
+    
+    <!-- 접속하기 위한 데이터베이스 소스 설정 -->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+    	<property name="driverClassName" value="${db.driverClass}"/>
+	    <property name="url" value="${db.url}"/>
+	    <property name="username" value="${db.username}"/>
+	    <property name="password" value="${db.password}"/>
+    </bean>
+    
+    <!-- 마이바티스 팩토리 설정 -->
+    <bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
+         <property name="dataSource" ref="dataSource"/>
+         <property name="configLocation" value="classpath:config/db/mybatisConfig.xml"/>
+    </bean>
+    
+    <mybatis-spring:scan base-package="spring0204_ex.mapper"/>
+      
+</beans>
